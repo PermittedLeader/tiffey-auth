@@ -1,5 +1,5 @@
 {
-    "name": "permittedleader/flash-messages",
+    "name": "permittedleader/tiffey-auth",
     "type": "library",
     "authors": [
         {
@@ -8,7 +8,11 @@
         }
     ],
     "require": {
-        "laravel/framework": "^10.45"
+        "laravel/framework": "^10.45",
+        "permittedleader/tiffey": "@dev",
+        "permittedleader/tiffey-tables": "@dev",
+        "livewire/livewire": "^3.5",
+        "spatie/laravel-permission": "^6.9"
     },
     "require-dev": {
         "orchestra/testbench": "^8.21",
@@ -18,7 +22,7 @@
     "license": "GNU GPLv3",
     "autoload": {
         "psr-4": {
-            "Permittedleader\\FlashMessages\\": "src/"
+            "Permittedleader\\TiffeyAuth\\": "src/"
         }
     },
     "config": {
@@ -29,11 +33,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Permittedleader\\FlashMessages\\FlashMessagesServiceProvider"
+                "Permittedleader\\TiffeyAuth\\TiffeyAuthServiceProvider"
             ]
-        },
-        "branch-alias": {
-            "dev-main": "1.x-dev"
         }
     }
 }
