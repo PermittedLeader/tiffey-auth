@@ -12,7 +12,7 @@
         "laravel/framework": "^10.45",
         "permittedleader/tiffey": "^1.4.4",
         "permittedleader/tiffey-tables": "^4.1.0",
-        "permittedleader/flash-messages": "^1.0",
+        "permittedleader/flash-messages": "^2.0",
         "livewire/livewire": "^3.5",
         "spatie/laravel-permission": "^6.9"
     },
