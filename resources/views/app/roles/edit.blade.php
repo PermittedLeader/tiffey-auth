@@ -1,54 +1,56 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            @lang('crud.roles.edit_title')
-        </h2>
-    </x-slot>
+<x-tiffey::layouts.main-layout>
+    <x-slot:pageTitle>{{ __('auth::auth.roles.edit_title') }}</x-slot:pageTitle>
+    @if($errors->any())
+        <x-tiffey::alert level="warning">
+            <x-slot name="header">
+                {{ __('You have errors in your form') }}
+            </x-slot>
+            <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </x-tiffey::alert>
+    @endif
+    <form method="POST" action="{{ route('roles.update',$role) }}">
+        @csrf
+        @method('PATCH')
+        <x-tiffey::card>
+            <x-slot:header>{{ __('auth::auth.roles.edit_title') }}</x-slot:header>
+            
+            <x-tiffey::input
+                label="{{ __('auth::auth.roles.inputs.name') }}"
+                name="name"
+                autocomplete="false"
+                value="{{ old('name', $role->name) }}"
+                />
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-partials.card>
-                <x-slot name="title">
-                    <a href="{{ route('roles.index') }}" class="mr-4"
-                        ><i class="mr-1 fa-solid fa-chevron-left"></i
-                    ></a>
-                </x-slot>
+            <x-tiffey::card>
+                <x-slot:header>{{ trans_choice('auth::auth.permissions.name',2) }}</x-slot:header>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                @foreach (array_keys($permissions->toArray()) as $group)
+                    <x-tiffey::card>
+                        <x-slot:header>{{ Str::title($group) }}</x-slot:header>
+                        @foreach ($permissions[$group] as $permission)
+                        <x-tiffey::input.checkbox
+                            label="{{ Str::title($permission->name) }}"
+                            id="{{ $permission->name }}"
+                            name="permissions[]"
+                            value="{{ $permission->id }}"
+                            checked="{{ old('permissions',$role->permissions->contains($permission)) }}"
+                            />
+                            
+                        @endforeach
+                    </x-tiffey::card>
+                @endforeach
+                </div>
+            </x-tiffey::card>
 
-                <x-form
-                    method="PUT"
-                    action="{{ route('roles.update', $role) }}"
-                    class="mt-4"
-                >
-                    @include('app.roles.form-inputs')
-
-                    <div class="mt-10">
-                        <a href="{{ route('roles.index') }}" class="button">
-                            <i
-                                class="
-                                    mr-1
-                                    icon
-                                    ion-md-return-left
-                                    text-primary
-                                "
-                            ></i>
-                            @lang('crud.common.back')
-                        </a>
-
-                        <a href="{{ route('roles.create') }}" class="button">
-                            <i class="mr-1 fa-solid fa-plus text-primary"></i>
-                            @lang('crud.common.create')
-                        </a>
-
-                        <button
-                            type="submit"
-                            class="button button-primary float-right"
-                        >
-                            <i class="mr-1 fa-solid fa-floppy-disk"></i>
-                            @lang('crud.common.update')
-                        </button>
-                    </div>
-                </x-form>
-            </x-partials.card>
-        </div>
-    </div>
-</x-app-layout>
+            <x-slot:footerActions>
+                <x-tiffey::form-button color="bg-brand-mid">
+                    {{ __('auth::auth.common.save') }}
+                </x-tiffey::form-button>
+            </x-slot:footerActions>
+        </x-tiffey::card>
+    </form>
+</x-tiffey::layouts.main-layout>
