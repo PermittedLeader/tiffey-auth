@@ -34,10 +34,10 @@
                         @foreach ($permissions[$group] as $permission)
                         <x-tiffey::input.checkbox
                             label="{{ Str::title($permission->name) }}"
-                            id="{{ $permission->name }}"
                             name="permissions[]"
                             value="{{ $permission->id }}"
                             checked="{{ old('permissions',$role->permissions->contains($permission)) }}"
+                            :checked="old('permissions',$role->permissions->contains($permission))"
                             />
                             
                         @endforeach

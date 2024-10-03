@@ -24,6 +24,9 @@ return [
         'name'=>'Role|Roles',
         'create_title'=>'Create role',
         'edit_title'=>'Edit role',
+        'index'=>[
+            'title'=>'All roles'
+        ],
         'inputs'=>[
             'name'=>'Name'
         ]
