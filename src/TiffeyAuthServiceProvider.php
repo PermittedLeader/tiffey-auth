@@ -30,6 +30,8 @@ class TiffeyAuthServiceProvider extends ServiceProvider
 
         $this->loadTranslationsFrom(__DIR__.'/../lang', 'auth');
 
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
         Gate::define('view permissions', function (User $user) {
             return $user->hasRole('Super Admin') || $user->hasPermissionTo('list permissions');
         });
