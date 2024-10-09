@@ -13,44 +13,49 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Permission::create([
+        Permission::updateOrCreate([
             'name'=>'view permissions',
             'guard_name'=>'web'
         ]);
-        Permission::create([
+        Permission::updateOrCreate([
             'name'=>'list permissions',
             'guard_name'=>'web'
         ]);
-        Permission::create([
+        Permission::updateOrCreate([
             'name'=>'create roles',
             'guard_name'=>'web'
         ]);
-        Permission::create([
+        Permission::updateOrCreate([
             'name'=>'list roles',
             'guard_name'=>'web'
         ]);
-        Permission::create([
+        Permission::updateOrCreate([
             'name'=>'update roles',
             'guard_name'=>'web'
         ]);
-        Permission::create([
+        Permission::updateOrCreate([
             'name'=>'delete roles',
             'guard_name'=>'web'
         ]);
-        Permission::create([
+        Permission::updateOrCreate([
             'name'=>'attach roles',
             'guard_name'=>'web'
         ]);
-        Permission::create([
+        Permission::updateOrCreate([
             'name'=>'view roles',
             'guard_name'=>'web'
         ]);
 
-        $role = Role::create([
-            'name'=>'Super Admin'
-        ]);
+        if(Role::where('name','Super Admin')->count() == 0){
+            $role = Role::updateOrCreate([
+                'name'=>'Super Admin'
+            ]);
 
-        $role->givePermissionTo(Permission::all());
+            $role->givePermissionTo(Permission::all());
+        };
+        
+
+        
     }
 
     /**
